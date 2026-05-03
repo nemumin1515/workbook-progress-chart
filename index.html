@@ -13,30 +13,26 @@ textarea:focus{border-color:#378ADD}
 .subj-btns{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
 .sbt{font-size:11px;padding:4px 10px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#555;cursor:pointer}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.tab-bar{display:flex;border-bottom:1px solid #e0e0e0;margin-bottom:12px;background:#f5f5f5;padding:0 8px}
-.tab{padding:10px 12px;font-size:12px;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab-bar{display:flex;border-bottom:1px solid #e0e0e0;margin-bottom:12px;background:#f5f5f5;padding:0 8px;overflow-x:auto}
+.tab{padding:10px 12px;font-size:12px;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
 .tab.on{color:#185FA5;border-bottom-color:#378ADD;font-weight:500}
 .btn-add{padding:8px 16px;font-size:12px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#333;cursor:pointer}
 .btn-add:hover{background:#f0f0f0}
 .btn-gen{padding:9px 20px;font-size:13px;font-weight:500;border:1px solid #378ADD;border-radius:6px;background:#E6F1FB;color:#0C447C;cursor:pointer}
 .btn-gen:hover{background:#B5D4F4}
 .btn-copy{padding:8px 16px;font-size:12px;border:1px solid #4CAF50;border-radius:6px;background:#E8F5E9;color:#1B5E20;cursor:pointer;font-weight:500}
-.btn-copy:hover{background:#C8E6C9}
 .btn-import{padding:8px 16px;font-size:12px;border:1px solid #FF9800;border-radius:6px;background:#FFF3E0;color:#E65100;cursor:pointer;font-weight:500}
-.btn-import:hover{background:#FFE0B2}
 .rm-btn{font-size:11px;color:#999;background:none;border:none;cursor:pointer;padding:2px 6px}
-.rm-btn:hover{color:#cc3333}
 #iv,#pv,#wv,#sv{display:none}
 #iv.on,#pv.on,#wv.on,#sv.on{display:block}
-.print-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:8px}
+.print-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:8px;flex-wrap:wrap;gap:8px}
 .print-btn{padding:7px 14px;font-size:12px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#333;cursor:pointer}
-.print-btn:hover{background:#f0f0f0}
-.pw{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:hidden}
+.pw{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:auto}
 .pi{padding:22px 26px}
 .pt{font-size:16px;font-weight:600;text-align:center;margin-bottom:4px;color:#1a1a1a}
 .pt-total{font-size:11px;text-align:center;color:#888;margin-bottom:18px}
 .cb{margin-bottom:18px}
-.cm{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.cm{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;flex-wrap:wrap}
 .wn{font-size:12px;font-weight:500;color:#1a1a1a}
 .ri{font-size:10px;color:#888}
 .grid-outer{width:190mm}
@@ -53,7 +49,7 @@ textarea:focus{border-color:#378ADD}
 .lb{width:12px;height:12px;border:1px solid #bbb;flex-shrink:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .lb.nn{background:#fff}.lb.g5{background:#d4d4d4}.lb.g10{background:#888}
 .lb.oo{background-image:repeating-linear-gradient(45deg,#e4e4e4 0,#e4e4e4 2px,#fff 2px,#fff 5px)}
-.week-wrap{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:hidden;margin-top:.75rem}
+.week-wrap{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:auto;margin-top:.75rem}
 .week-inner{padding:22px 26px;font-family:'Helvetica Neue',Arial,sans-serif}
 .week-title{font-size:16px;font-weight:600;text-align:center;margin-bottom:16px;color:#1a1a1a}
 .week-table{width:190mm;border-collapse:collapse;table-layout:fixed}
@@ -66,14 +62,42 @@ textarea:focus{border-color:#378ADD}
 .notice.err{background:#FEECEC;color:#8B1A1A}
 .err-detail{font-size:11px;color:#8B1A1A;background:#FEECEC;border-radius:6px;padding:8px;margin-top:8px;display:none;line-height:1.6;white-space:pre-wrap}
 
+/* ===== スマホ用スタイル ===== */
+@media (max-width:600px){
+  .app{padding:8px}
+  .card{padding:12px}
+  .card-title{font-size:14px;margin-bottom:12px}
+  label{font-size:13px;margin-bottom:5px}
+  input[type=text],input[type=number]{height:42px;font-size:14px;border-radius:8px}
+  textarea{font-size:13px}
+  .sbt{font-size:13px;padding:7px 13px;border-radius:8px}
+  .tab{font-size:13px;padding:12px 14px}
+  .btn-add,.btn-gen,.btn-copy,.btn-import,.print-btn{
+    font-size:14px;padding:12px 18px;border-radius:8px;width:100%
+  }
+  .btn-add,.btn-gen{display:block;text-align:center}
+  .row2{gap:10px;margin-top:10px}
+  .rm-btn{font-size:13px;padding:6px 10px}
+  .notice{font-size:13px}
+  .err-detail{font-size:13px}
+  /* プレビュー：スマホでは横スクロール案内を表示 */
+  .pw,.week-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .scroll-hint{display:block!important}
+}
+.scroll-hint{
+  display:none;
+  font-size:12px;color:#888;padding:4px 12px 0;
+  text-align:center;
+}
+
 @media print{
   @page{size:A4 portrait;margin:10mm 10mm}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   body{background:#fff}
   .app{padding:0;max-width:100%}
-  .tab-bar,.print-bar,#iv,#sv{display:none!important}
+  .tab-bar,.print-bar,#iv,#sv,.scroll-hint{display:none!important}
   #pv.on,#wv.on{display:block!important}
-  .pw,.week-wrap{border:none;border-radius:0}
+  .pw,.week-wrap{border:none;border-radius:0;overflow:visible}
   .pi,.week-inner{padding:0}
   .cb{page-break-inside:avoid}
   .cl.nn{background:#fff!important;color:#555!important}
@@ -100,7 +124,7 @@ textarea:focus{border-color:#378ADD}
       <input type="text" id="ttl" placeholder="例：夏休み提出課題">
     </div>
     <div id="sc"></div>
-    <div style="display:flex;gap:8px;margin-top:4px;padding:0 2px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;padding:0 2px">
       <button class="btn-add" onclick="addS()">＋ 教科を追加</button>
       <button class="btn-gen" onclick="gen()">プレビューを生成 →</button>
     </div>
@@ -109,16 +133,18 @@ textarea:focus{border-color:#378ADD}
   <div id="pv">
     <div class="print-bar">
       <span style="font-size:12px;color:#666">A4縦・左右余白10mm</span>
-      <button class="print-btn" onclick="window.print()">🖨 印刷</button>
+      <button class="print-btn" style="width:auto" onclick="window.print()">🖨 印刷</button>
     </div>
+    <p class="scroll-hint">← チャートは横にスクロールできます →</p>
     <div class="pw"><div class="pi" id="pc"></div></div>
   </div>
 
   <div id="wv">
     <div class="print-bar">
       <span style="font-size:12px;color:#666">A4縦・左右余白10mm</span>
-      <button class="print-btn" onclick="window.print()">🖨 印刷</button>
+      <button class="print-btn" style="width:auto" onclick="window.print()">🖨 印刷</button>
     </div>
+    <p class="scroll-hint">← 表は横にスクロールできます →</p>
     <div class="week-wrap"><div class="week-inner" id="wc"></div></div>
   </div>
 
@@ -126,8 +152,8 @@ textarea:focus{border-color:#378ADD}
     <div class="card">
       <div class="card-title">📋 データのコピー（保存）</div>
       <p style="font-size:12px;color:#555;margin-bottom:8px;line-height:1.6">下のCSVテキストを全部コピーして、メモ帳に貼り付けて保存してください。</p>
-      <textarea id="export-box" rows="8" readonly onclick="this.select()"></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+      <textarea id="export-box" rows="6" readonly onclick="this.select()"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
         <button class="btn-copy" onclick="doCopy()">📋 全部コピーする</button>
         <span class="notice ok" id="copy-ok">✓ コピーしました！</span>
       </div>
@@ -135,8 +161,8 @@ textarea:focus{border-color:#378ADD}
     <div class="card">
       <div class="card-title">📥 データの貼り付け（読込）</div>
       <p style="font-size:12px;color:#555;margin-bottom:10px;line-height:1.6">保存しておいたCSVテキストを下の枠に貼り付けて「読み込む」を押してください。<br><span style="color:#E65100;font-weight:500">※現在の入力内容は上書きされます。</span></p>
-      <textarea id="import-box" rows="8" placeholder="ここに保存したCSVテキストを貼り付けてください"></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap">
+      <textarea id="import-box" rows="6" placeholder="ここに保存したCSVテキストを貼り付けてください"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
         <button class="btn-import" onclick="doImport()">📥 読み込む</button>
         <span class="notice ok" id="import-ok">✓ 読み込みました！</span>
         <span class="notice err" id="import-err">⚠ 失敗しました</span>
@@ -156,15 +182,11 @@ const COLORS={
   '理科':{bg:'#F3E8FF',text:'#4A148C',border:'#9C27B0'},
   'その他':{bg:'#F0F0F0',text:'#444',border:'#aaa'},
 };
-let sc=0, uid=0;
+let sc=0,uid=0;
 function gc(n){return COLORS[n]||COLORS['その他'];}
 function newId(){return 's'+(++uid);}
 
-/* ---- CSV ---- */
-function csvCell(v){
-  const s=String(v==null?'':v);
-  return(s.includes(',')||s.includes('"')||s.includes('\n'))?'"'+s.replace(/"/g,'""')+'"':s;
-}
+function csvCell(v){const s=String(v==null?'':v);return(s.includes(',')||s.includes('"')||s.includes('\n'))?'"'+s.replace(/"/g,'""')+'"':s;}
 function toCSV(){
   const title=document.getElementById('ttl').value||'';
   const rows=collectData();
@@ -196,8 +218,6 @@ function parseCSV(text){
   if(!rows.length)throw new Error('データ行が0件です');
   return{title,rows};
 }
-
-/* ---- コピー・インポート ---- */
 function doCopy(){
   const box=document.getElementById('export-box');
   box.value=toCSV();box.select();
@@ -225,8 +245,6 @@ function showNotice(id){
   el.style.display='inline-block';
   setTimeout(()=>el.style.display='none',2500);
 }
-
-/* ---- タブ ---- */
 function sw(t){
   const tabs=['input','preview','week','save'];
   const views=['iv','pv','wv','sv'];
@@ -235,23 +253,14 @@ function sw(t){
   if(t==='week')buildWeek();
   if(t==='save')document.getElementById('export-box').value=toCSV();
 }
-
-/* ---- データ収集 ---- */
 function collectData(){
   const rows=[];
   document.querySelectorAll('#sc .card').forEach(sec=>{
     const id=sec.id;
-    rows.push({
-      subj:document.getElementById('v'+id)?.value||'英語',
-      wn:  document.getElementById('wn'+id)?.value||'',
-      ws:  document.getElementById('ws'+id)?.value||'',
-      we:  document.getElementById('we'+id)?.value||'',
-    });
+    rows.push({subj:document.getElementById('v'+id)?.value||'英語',wn:document.getElementById('wn'+id)?.value||'',ws:document.getElementById('ws'+id)?.value||'',we:document.getElementById('we'+id)?.value||''});
   });
   return rows;
 }
-
-/* ---- 教科カード ---- */
 function addS(preset,index){
   if(sc>=12){alert('教科は12個まで追加できます');return;}
   sc++;
@@ -286,9 +295,7 @@ function addS(preset,index){
     if(preset.wn)document.getElementById('wn'+id).value=preset.wn;
     if(preset.ws)document.getElementById('ws'+id).value=preset.ws;
     if(preset.we)document.getElementById('we'+id).value=preset.we;
-  }else{
-    selS(d.querySelector('.sbt'),id);
-  }
+  }else{selS(d.querySelector('.sbt'),id);}
 }
 function selS(btn,id){
   btn.closest('.subj-btns').querySelectorAll('.sbt').forEach(b=>{
@@ -300,8 +307,6 @@ function selS(btn,id){
   btn.style.boxShadow=`0 0 0 2px ${gc(btn.textContent).border}`;
   document.getElementById('v'+id).value=btn.textContent;
 }
-
-/* ---- 進捗チャート生成 ---- */
 function mkChart(wn,s,e,subj){
   s=parseInt(s)||1;e=parseInt(e)||20;
   if(e<s)return{html:'',pages:0};
@@ -325,26 +330,16 @@ function mkChart(wn,s,e,subj){
   </div>`;
   return{html,pages:tot};
 }
-
 function gen(){
   const t=document.getElementById('ttl').value||'進捗チャート';
-  let ch='';
-  let totalPages=0;
+  let ch='',totalPages=0;
   collectData().forEach(({subj,wn,ws,we})=>{
-    if(wn||(ws&&we)){
-      const{html,pages}=mkChart(wn,ws,we,subj);
-      ch+=html;
-      totalPages+=pages;
-    }
+    if(wn||(ws&&we)){const{html,pages}=mkChart(wn,ws,we,subj);ch+=html;totalPages+=pages;}
   });
   if(!ch){alert('ワーク情報を1つ以上入力してください');return;}
-
-  // 合計ページ数の表示
-  const totalStr=totalPages>0?`合計${totalPages}ページ`:'';
-
   document.getElementById('pc').innerHTML=`
     <div class="pt">${t}</div>
-    <div class="pt-total">${totalStr}</div>
+    <div class="pt-total">${totalPages>0?'合計'+totalPages+'ページ':''}</div>
     ${ch}
     <div class="lgd">
       <div class="li"><div class="lb nn"></div>通常ページ</div>
@@ -354,8 +349,6 @@ function gen(){
     </div>`;
   sw('preview');
 }
-
-/* ---- 週の予定 ---- */
 function buildWeek(){
   const data=collectData().filter(r=>r.wn||(r.ws&&r.we));
   const t=document.getElementById('ttl').value||'進捗チャート';
@@ -379,6 +372,5 @@ function buildWeek(){
       <tbody>${bodyRows}</tbody>
     </table>`;
 }
-
 addS();
 </script>
