@@ -1,0 +1,384 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#f5f5f5;color:#1a1a1a}
+.app{max-width:680px;margin:0 auto;padding:12px}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:12px;font-weight:500;color:#666;margin-bottom:10px}
+label{display:block;font-size:11px;color:#666;margin-bottom:3px}
+input[type=text],input[type=number]{width:100%;height:32px;font-size:12px;padding:0 8px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#1a1a1a;outline:none}
+input:focus{border-color:#378ADD}
+textarea{width:100%;font-size:11px;padding:8px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#1a1a1a;outline:none;resize:vertical;font-family:monospace;line-height:1.8}
+textarea:focus{border-color:#378ADD}
+.subj-btns{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.sbt{font-size:11px;padding:4px 10px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#555;cursor:pointer}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.tab-bar{display:flex;border-bottom:1px solid #e0e0e0;margin-bottom:12px;background:#f5f5f5;padding:0 8px}
+.tab{padding:10px 12px;font-size:12px;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab.on{color:#185FA5;border-bottom-color:#378ADD;font-weight:500}
+.btn-add{padding:8px 16px;font-size:12px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#333;cursor:pointer}
+.btn-add:hover{background:#f0f0f0}
+.btn-gen{padding:9px 20px;font-size:13px;font-weight:500;border:1px solid #378ADD;border-radius:6px;background:#E6F1FB;color:#0C447C;cursor:pointer}
+.btn-gen:hover{background:#B5D4F4}
+.btn-copy{padding:8px 16px;font-size:12px;border:1px solid #4CAF50;border-radius:6px;background:#E8F5E9;color:#1B5E20;cursor:pointer;font-weight:500}
+.btn-copy:hover{background:#C8E6C9}
+.btn-import{padding:8px 16px;font-size:12px;border:1px solid #FF9800;border-radius:6px;background:#FFF3E0;color:#E65100;cursor:pointer;font-weight:500}
+.btn-import:hover{background:#FFE0B2}
+.rm-btn{font-size:11px;color:#999;background:none;border:none;cursor:pointer;padding:2px 6px}
+.rm-btn:hover{color:#cc3333}
+#iv,#pv,#wv,#sv{display:none}
+#iv.on,#pv.on,#wv.on,#sv.on{display:block}
+.print-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:8px}
+.print-btn{padding:7px 14px;font-size:12px;border:1px solid #d0d0d0;border-radius:6px;background:#fff;color:#333;cursor:pointer}
+.print-btn:hover{background:#f0f0f0}
+.pw{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:hidden}
+.pi{padding:22px 26px}
+.pt{font-size:16px;font-weight:600;text-align:center;margin-bottom:4px;color:#1a1a1a}
+.pt-total{font-size:11px;text-align:center;color:#888;margin-bottom:18px}
+.cb{margin-bottom:18px}
+.cm{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.wn{font-size:12px;font-weight:500;color:#1a1a1a}
+.ri{font-size:10px;color:#888}
+.grid-outer{width:190mm}
+.gr{display:flex;width:190mm}
+.cl{width:9.5mm;height:9.5mm;flex-shrink:0;border-right:0.3mm solid #bbb;border-bottom:0.3mm solid #bbb;display:flex;align-items:center;justify-content:center;font-size:6.5pt;line-height:1;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.gr:first-child .cl{border-top:0.3mm solid #bbb}
+.cl:first-child{border-left:0.3mm solid #bbb}
+.cl.nn{background:#fff;color:#555}
+.cl.g5{background:#d4d4d4;color:#333}
+.cl.g10{background:#888;color:#fff}
+.cl.oo{background-image:repeating-linear-gradient(45deg,#e4e4e4 0,#e4e4e4 1.5px,#fff 1.5px,#fff 5px);border-color:#d8d8d8;color:transparent}
+.lgd{margin-top:12px;display:flex;gap:14px;font-size:9px;color:#666;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px}
+.lb{width:12px;height:12px;border:1px solid #bbb;flex-shrink:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.lb.nn{background:#fff}.lb.g5{background:#d4d4d4}.lb.g10{background:#888}
+.lb.oo{background-image:repeating-linear-gradient(45deg,#e4e4e4 0,#e4e4e4 2px,#fff 2px,#fff 5px)}
+.week-wrap{background:#fff;border:1px solid #d0d0d0;border-radius:10px;overflow:hidden;margin-top:.75rem}
+.week-inner{padding:22px 26px;font-family:'Helvetica Neue',Arial,sans-serif}
+.week-title{font-size:16px;font-weight:600;text-align:center;margin-bottom:16px;color:#1a1a1a}
+.week-table{width:190mm;border-collapse:collapse;table-layout:fixed}
+.week-table th{background:#f0f0f0;font-size:10px;font-weight:600;color:#444;padding:5px 6px;border:0.3mm solid #bbb;text-align:left;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.week-table td{font-size:10px;color:#1a1a1a;border:0.3mm solid #bbb;vertical-align:middle;padding:4px 6px}
+.week-table td.write-cell{height:10mm;padding:0}
+.subj-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:2px;font-weight:600;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.notice{font-size:11px;padding:4px 8px;border-radius:4px;display:none}
+.notice.ok{background:#E8F5E9;color:#1B5E20}
+.notice.err{background:#FEECEC;color:#8B1A1A}
+.err-detail{font-size:11px;color:#8B1A1A;background:#FEECEC;border-radius:6px;padding:8px;margin-top:8px;display:none;line-height:1.6;white-space:pre-wrap}
+
+@media print{
+  @page{size:A4 portrait;margin:10mm 10mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff}
+  .app{padding:0;max-width:100%}
+  .tab-bar,.print-bar,#iv,#sv{display:none!important}
+  #pv.on,#wv.on{display:block!important}
+  .pw,.week-wrap{border:none;border-radius:0}
+  .pi,.week-inner{padding:0}
+  .cb{page-break-inside:avoid}
+  .cl.nn{background:#fff!important;color:#555!important}
+  .cl.g5{background:#d4d4d4!important;color:#333!important}
+  .cl.g10{background:#888!important;color:#fff!important}
+  .cl.oo{background-image:repeating-linear-gradient(45deg,#e4e4e4 0,#e4e4e4 1.5px,#fff 1.5px,#fff 5px)!important;color:transparent!important}
+  .week-table th{background:#f0f0f0!important}
+}
+</style>
+
+<h2 style="position:absolute;left:-9999px">ページ進捗チャート作成アプリ</h2>
+<div class="app">
+  <div class="tab-bar">
+    <div class="tab on" onclick="sw('input')">入力</div>
+    <div class="tab" onclick="sw('preview')">進捗チャート</div>
+    <div class="tab" onclick="sw('week')">週の予定</div>
+    <div class="tab" onclick="sw('save')">💾 保存・読込</div>
+  </div>
+
+  <div id="iv" class="on">
+    <div class="card">
+      <div class="card-title">基本設定</div>
+      <label>タイトル（空欄の場合「進捗チャート」）</label>
+      <input type="text" id="ttl" placeholder="例：夏休み提出課題">
+    </div>
+    <div id="sc"></div>
+    <div style="display:flex;gap:8px;margin-top:4px;padding:0 2px;flex-wrap:wrap">
+      <button class="btn-add" onclick="addS()">＋ 教科を追加</button>
+      <button class="btn-gen" onclick="gen()">プレビューを生成 →</button>
+    </div>
+  </div>
+
+  <div id="pv">
+    <div class="print-bar">
+      <span style="font-size:12px;color:#666">A4縦・左右余白10mm</span>
+      <button class="print-btn" onclick="window.print()">🖨 印刷</button>
+    </div>
+    <div class="pw"><div class="pi" id="pc"></div></div>
+  </div>
+
+  <div id="wv">
+    <div class="print-bar">
+      <span style="font-size:12px;color:#666">A4縦・左右余白10mm</span>
+      <button class="print-btn" onclick="window.print()">🖨 印刷</button>
+    </div>
+    <div class="week-wrap"><div class="week-inner" id="wc"></div></div>
+  </div>
+
+  <div id="sv">
+    <div class="card">
+      <div class="card-title">📋 データのコピー（保存）</div>
+      <p style="font-size:12px;color:#555;margin-bottom:8px;line-height:1.6">下のCSVテキストを全部コピーして、メモ帳に貼り付けて保存してください。</p>
+      <textarea id="export-box" rows="8" readonly onclick="this.select()"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+        <button class="btn-copy" onclick="doCopy()">📋 全部コピーする</button>
+        <span class="notice ok" id="copy-ok">✓ コピーしました！</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📥 データの貼り付け（読込）</div>
+      <p style="font-size:12px;color:#555;margin-bottom:10px;line-height:1.6">保存しておいたCSVテキストを下の枠に貼り付けて「読み込む」を押してください。<br><span style="color:#E65100;font-weight:500">※現在の入力内容は上書きされます。</span></p>
+      <textarea id="import-box" rows="8" placeholder="ここに保存したCSVテキストを貼り付けてください"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn-import" onclick="doImport()">📥 読み込む</button>
+        <span class="notice ok" id="import-ok">✓ 読み込みました！</span>
+        <span class="notice err" id="import-err">⚠ 失敗しました</span>
+      </div>
+      <div class="err-detail" id="err-detail"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUBJS=['英語','数学','国語','社会','理科','その他'];
+const COLORS={
+  '英語':{bg:'#FFFDE7',text:'#7A6000',border:'#F5D000'},
+  '数学':{bg:'#E3F0FF',text:'#0C447C',border:'#378ADD'},
+  '国語':{bg:'#FEECEC',text:'#8B1A1A',border:'#E06060'},
+  '社会':{bg:'#E8F5E9',text:'#1B5E20',border:'#4CAF50'},
+  '理科':{bg:'#F3E8FF',text:'#4A148C',border:'#9C27B0'},
+  'その他':{bg:'#F0F0F0',text:'#444',border:'#aaa'},
+};
+let sc=0, uid=0;
+function gc(n){return COLORS[n]||COLORS['その他'];}
+function newId(){return 's'+(++uid);}
+
+/* ---- CSV ---- */
+function csvCell(v){
+  const s=String(v==null?'':v);
+  return(s.includes(',')||s.includes('"')||s.includes('\n'))?'"'+s.replace(/"/g,'""')+'"':s;
+}
+function toCSV(){
+  const title=document.getElementById('ttl').value||'';
+  const rows=collectData();
+  const lines=[[csvCell('タイトル'),csvCell(title)].join(','),'教科,ワーク名,開始P,終了P'];
+  rows.forEach(r=>lines.push([csvCell(r.subj),csvCell(r.wn),csvCell(r.ws),csvCell(r.we)].join(',')));
+  return lines.join('\n');
+}
+function splitCSVLine(line){
+  const result=[];let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(inQ){if(ch==='"'){if(line[i+1]==='"'){cur+='"';i++;}else inQ=false;}else cur+=ch;}
+    else{if(ch==='"')inQ=true;else if(ch===','){result.push(cur);cur='';}else cur+=ch;}
+  }
+  result.push(cur);return result;
+}
+function parseCSV(text){
+  const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim()!=='');
+  if(lines.length<2)throw new Error('行数が足りません');
+  const t0=splitCSVLine(lines[0]);
+  if(t0[0]!=='タイトル')throw new Error('1行目が「タイトル,〇〇」ではありません');
+  const title=t0[1]||'';
+  const rows=[];
+  for(let i=2;i<lines.length;i++){
+    const c=splitCSVLine(lines[i]);
+    if(c.length<1)continue;
+    rows.push({subj:c[0]||'英語',wn:c[1]||'',ws:c[2]||'',we:c[3]||''});
+  }
+  if(!rows.length)throw new Error('データ行が0件です');
+  return{title,rows};
+}
+
+/* ---- コピー・インポート ---- */
+function doCopy(){
+  const box=document.getElementById('export-box');
+  box.value=toCSV();box.select();
+  try{document.execCommand('copy');}catch(e){}
+  showNotice('copy-ok');
+}
+function doImport(){
+  const text=document.getElementById('import-box').value.trim();
+  const ed=document.getElementById('err-detail');
+  ed.style.display='none';
+  if(!text){ed.textContent='テキストが貼り付けられていません。';ed.style.display='block';showNotice('import-err');return;}
+  let data;
+  try{data=parseCSV(text);}
+  catch(e){ed.textContent='読み込み失敗：'+e.message;ed.style.display='block';showNotice('import-err');return;}
+  document.getElementById('sc').innerHTML='';sc=0;
+  document.getElementById('ttl').value=data.title||'';
+  data.rows.forEach((r,i)=>addS(r,i));
+  document.getElementById('import-box').value='';
+  ed.style.display='none';
+  showNotice('import-ok');
+  setTimeout(()=>sw('input'),1000);
+}
+function showNotice(id){
+  const el=document.getElementById(id);
+  el.style.display='inline-block';
+  setTimeout(()=>el.style.display='none',2500);
+}
+
+/* ---- タブ ---- */
+function sw(t){
+  const tabs=['input','preview','week','save'];
+  const views=['iv','pv','wv','sv'];
+  document.querySelectorAll('.tab').forEach((tb,i)=>tb.classList.toggle('on',tabs[i]===t));
+  views.forEach((v,i)=>document.getElementById(v).classList.toggle('on',tabs[i]===t));
+  if(t==='week')buildWeek();
+  if(t==='save')document.getElementById('export-box').value=toCSV();
+}
+
+/* ---- データ収集 ---- */
+function collectData(){
+  const rows=[];
+  document.querySelectorAll('#sc .card').forEach(sec=>{
+    const id=sec.id;
+    rows.push({
+      subj:document.getElementById('v'+id)?.value||'英語',
+      wn:  document.getElementById('wn'+id)?.value||'',
+      ws:  document.getElementById('ws'+id)?.value||'',
+      we:  document.getElementById('we'+id)?.value||'',
+    });
+  });
+  return rows;
+}
+
+/* ---- 教科カード ---- */
+function addS(preset,index){
+  if(sc>=12){alert('教科は12個まで追加できます');return;}
+  sc++;
+  const id=(index!=null)?'s'+(index+1):newId();
+  const d=document.createElement('div');
+  d.className='card';d.id=id;
+  d.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span class="card-title" style="margin:0">教科 ${sc}</span>
+      <button class="rm-btn" onclick="document.getElementById('${id}').remove()">✕ 削除</button>
+    </div>
+    <div style="margin-bottom:10px">
+      <label>教科</label>
+      <div class="subj-btns" id="b${id}">
+        ${SUBJS.map(s=>{const c=gc(s);return`<button class="sbt" style="background:${c.bg};border-color:${c.border};color:${c.text}" onclick="selS(this,'${id}')">${s}</button>`;}).join('')}
+      </div>
+      <input type="hidden" id="v${id}" value="">
+    </div>
+    <div>
+      <label>ワーク名</label>
+      <input type="text" id="wn${id}" placeholder="例：英語サポートブック">
+      <div class="row2">
+        <div><label>開始P</label><input type="number" id="ws${id}" placeholder="1" min="1"></div>
+        <div><label>終了P</label><input type="number" id="we${id}" placeholder="20" min="1"></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('sc').appendChild(d);
+  if(preset&&preset.subj){
+    const match=[...d.querySelectorAll('.sbt')].find(b=>b.textContent===preset.subj);
+    selS(match||d.querySelector('.sbt'),id);
+    if(preset.wn)document.getElementById('wn'+id).value=preset.wn;
+    if(preset.ws)document.getElementById('ws'+id).value=preset.ws;
+    if(preset.we)document.getElementById('we'+id).value=preset.we;
+  }else{
+    selS(d.querySelector('.sbt'),id);
+  }
+}
+function selS(btn,id){
+  btn.closest('.subj-btns').querySelectorAll('.sbt').forEach(b=>{
+    const c=gc(b.textContent);
+    b.style.background=c.bg;b.style.borderColor=c.border;b.style.color=c.text;
+    b.style.fontWeight='400';b.style.boxShadow='none';
+  });
+  btn.style.fontWeight='600';
+  btn.style.boxShadow=`0 0 0 2px ${gc(btn.textContent).border}`;
+  document.getElementById('v'+id).value=btn.textContent;
+}
+
+/* ---- 進捗チャート生成 ---- */
+function mkChart(wn,s,e,subj){
+  s=parseInt(s)||1;e=parseInt(e)||20;
+  if(e<s)return{html:'',pages:0};
+  const COLS=20,tot=e-s+1,cells=Math.ceil(tot/COLS)*COLS;
+  const c=gc(subj);
+  const tagStyle=`background:${c.bg};color:${c.text};border:1px solid ${c.border};padding:2px 9px;border-radius:3px;font-size:10px;font-weight:600;flex-shrink:0;-webkit-print-color-adjust:exact;print-color-adjust:exact`;
+  let rows='';
+  for(let r=0;r<cells/COLS;r++){
+    let row='';
+    for(let c2=0;c2<COLS;c2++){
+      const i=r*COLS+c2,pg=s+i,out=i>=tot,rel=i+1;
+      let cls,lbl='';
+      if(out){cls='oo';}else{lbl=pg;cls=rel%10===0?'g10':rel%5===0?'g5':'nn';}
+      row+=`<div class="cl ${cls}">${lbl}</div>`;
+    }
+    rows+=`<div class="gr">${row}</div>`;
+  }
+  const html=`<div class="cb">
+    <div class="cm"><span style="${tagStyle}">${subj}</span><span class="wn">${wn||'（ワーク名未入力）'}</span><span class="ri">p.${s}〜p.${e}（${tot}ページ）</span></div>
+    <div class="grid-outer">${rows}</div>
+  </div>`;
+  return{html,pages:tot};
+}
+
+function gen(){
+  const t=document.getElementById('ttl').value||'進捗チャート';
+  let ch='';
+  let totalPages=0;
+  collectData().forEach(({subj,wn,ws,we})=>{
+    if(wn||(ws&&we)){
+      const{html,pages}=mkChart(wn,ws,we,subj);
+      ch+=html;
+      totalPages+=pages;
+    }
+  });
+  if(!ch){alert('ワーク情報を1つ以上入力してください');return;}
+
+  // 合計ページ数の表示
+  const totalStr=totalPages>0?`合計${totalPages}ページ`:'';
+
+  document.getElementById('pc').innerHTML=`
+    <div class="pt">${t}</div>
+    <div class="pt-total">${totalStr}</div>
+    ${ch}
+    <div class="lgd">
+      <div class="li"><div class="lb nn"></div>通常ページ</div>
+      <div class="li"><div class="lb g5"></div>5P刻み</div>
+      <div class="li"><div class="lb g10"></div>10P刻み</div>
+      <div class="li"><div class="lb oo"></div>提出範囲外</div>
+    </div>`;
+  sw('preview');
+}
+
+/* ---- 週の予定 ---- */
+function buildWeek(){
+  const data=collectData().filter(r=>r.wn||(r.ws&&r.we));
+  const t=document.getElementById('ttl').value||'進捗チャート';
+  if(!data.length){document.getElementById('wc').innerHTML='<p style="font-size:12px;color:#888;padding:12px">「入力」タブでワーク情報を入力してください</p>';return;}
+  const total=data.length;
+  let bodyRows='';
+  data.forEach(({subj,wn},i)=>{
+    const c=gc(subj);
+    const badge=`<span class="subj-badge" style="background:${c.bg};color:${c.text};border:1px solid ${c.border};-webkit-print-color-adjust:exact;print-color-adjust:exact">${subj}</span>`;
+    if(i===0){
+      bodyRows+=`<tr><td rowspan="${total}" class="write-cell" style="border:0.3mm solid #bbb"></td><td style="border:0.3mm solid #bbb;padding:4px 6px;white-space:nowrap">${badge}</td><td style="border:0.3mm solid #bbb;padding:4px 6px">${wn||'（未入力）'}</td><td class="write-cell" style="border:0.3mm solid #bbb"></td><td class="write-cell" style="border:0.3mm solid #bbb"></td></tr>`;
+    }else{
+      bodyRows+=`<tr><td style="border:0.3mm solid #bbb;padding:4px 6px;white-space:nowrap">${badge}</td><td style="border:0.3mm solid #bbb;padding:4px 6px">${wn||'（未入力）'}</td><td class="write-cell" style="border:0.3mm solid #bbb"></td><td class="write-cell" style="border:0.3mm solid #bbb"></td></tr>`;
+    }
+  });
+  document.getElementById('wc').innerHTML=`
+    <div class="week-title">${t}　週の予定</div>
+    <table class="week-table">
+      <colgroup><col style="width:22mm"><col style="width:18mm"><col style="width:80mm"><col style="width:35mm"><col style="width:35mm"></colgroup>
+      <thead><tr><th>週の予定</th><th>教科</th><th>ワーク名</th><th>ページ</th><th>備考</th></tr></thead>
+      <tbody>${bodyRows}</tbody>
+    </table>`;
+}
+
+addS();
+</script>
